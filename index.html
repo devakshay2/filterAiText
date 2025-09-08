@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Message Formatter</title>
+  </head>
+  <body>
+    <textarea
+      id="input"
+      placeholder="Enter message"
+      rows="5"
+      cols="40"
+    ></textarea
+    ><br />
+    <button onclick="format()">Format</button>
+    <pre id="output"></pre>
+
+    <script>
+      function formatMessage(msg) {
+        const cleaned = msg
+          // Remove all characters except printable ASCII and newlines
+          .replace(/[^ -~]/g, "")
+          // Remove invisible/formatting Unicode characters
+          .replace(/[---]/g, "")
+          // Replace multiple spaces/tabs with a single space (preserve newlines)
+          .replace(/[ ]+/g, " ")
+          // Remove leading/trailing spaces from each line (preserve newlines)
+          .replace(/^ +| +$/gm, "");
+        return cleaned;
+      }
+
+      function format() {
+        const msg = document.getElementById("input").value;
+        document.getElementById("output").innerText = formatMessage(msg);
+      }
+    </script>
+  </body>
+</html>
